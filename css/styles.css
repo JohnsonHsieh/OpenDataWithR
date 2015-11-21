@@ -1,0 +1,96 @@
+
+body {
+  color: #444;
+	background-image: url(https://dsp.im/wp-content/uploads/2015/01/bg-body.gif);
+	font-family: Microsoft JhengHei, Helvetica !important;
+	font-size: 1.2em !important;
+	line-height: 2em !important;
+	letter-spacing: .05em;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Microsoft JhengHei, Helvetica !important;
+		color: inherit;
+		font-weight: 700;
+		line-height: 1.5em;
+		margin-bottom: 1em;
+	}
+
+strong, b {
+		color: #3A87AD;
+}
+
+
+ul, li, a {
+  font-family: Microsoft JhengHei, Helvetica !important;
+}
+
+
+a, #navigation .navbar-nav li.current-menu-item a, #navigation .navbar-nav > li.current-menu-parent > a, .team-box ul.social li a {
+	color: #3A87AD;
+}
+
+
+h2 {
+	border-bottom: 3px double #c8c8c8 !important;
+	padding: 0 !important;
+	margin: 0 0 5px !important;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+	font-family: Microsoft JhengHei, Helvetica !important;
+	font-size: 1.5em !important;
+	line-height: 1.75em !important;
+}
+
+h3 {
+  border-bottom: 3px double #c8c8c8 !important;
+	padding: 0 !important;
+	margin: 0 0 5px !important;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+	font-family: Microsoft JhengHei, Helvetica !important;
+	font-size: 1.25em !important;
+	line-height: 1.5em !important;
+}
+
+.btn {
+	margin: 20px;
+}
+
+  blockquote {
+		border-left: solid 0.5em #888888;
+		font-style: italic;
+		padding: 1em 0 1em 2em;
+	}
+
+	section.special, article.special {
+		text-align: center;
+	}
+
+/* Tables */
+
+table {
+  width: 100%
+}
+
+table tbody tr {
+	border-bottom: solid 1px #888888;
+}
+
+table td {
+	padding: 0.5em 1em 0.5em 1em;
+  text-align: center;
+  width: 1px;
+  white-space: nowrap; // 自适應寬度
+  word-break:  keep-all; // 避免長單詞截斷，保持全部 
+}
+
+table th {
+	font-weight: 700;
+	padding: 0.5em 1em 0.5em 1em;
+	text-align: center;
+}
+
+table thead {
+	background: #555555;
+	color: #fff;
+}
