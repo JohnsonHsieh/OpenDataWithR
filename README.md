@@ -10,7 +10,7 @@
   
 - NPO城鄉多樣性比較 (謝宗震 博士)
   - R包：`rvest` + `dplyr` + `ggplot2` + `iNEXT`
-  - 參考：[data](https://github.com/JohnsonHsieh/OpenDataWithR/blob/master/data/NGO%20lists%20-%20%E8%81%AF%E5%90%88%E5%8B%B8%E5%8B%9F.csv), [github repo](https://github.com/JohnsonHsieh/OpenDataWithR/)
+  - 參考：[data1](https://github.com/JohnsonHsieh/OpenDataWithR/blob/master/data/NGO%20lists%20-%20%E8%81%AF%E5%90%88%E5%8B%B8%E5%8B%9F.csv), [data2](https://github.com/JohnsonHsieh/OpenDataWithR/blob/gh-pages/npo-type.csv), [github repo](https://github.com/JohnsonHsieh/OpenDataWithR/)
 
 ## 洞悉因素案例
 - 找出火災風險熱區 (New Orleans Analytics)
