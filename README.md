@@ -1,6 +1,7 @@
 # R在開放數據的加值應用
 - 這場演講講述開放數據在三種數據分析類型的加值應用
-- [slide](http://johnsonhsieh.github.io/OpenDataWithR/index.html)
+- [投影片(繁體)](http://johnsonhsieh.github.io/OpenDataWithR/index_zh_tw.html)、[投影片(簡體)](http://johnsonhsieh.github.io/OpenDataWithR/index.html)
+
 
 ## 掌握現況
 - 社區醫療群地圖 (李昕迪 醫師)
