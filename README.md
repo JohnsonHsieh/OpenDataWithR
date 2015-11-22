@@ -21,6 +21,6 @@
   - R包：`mgcv`
   - 參考：[data](https://github.com/JohnsonHsieh/OpenDataWithR/blob/master/data/dat1.rds), [github repo](https://github.com/JohnsonHsieh/study-area-statR)
   
-- NPO總數估計
+- NPO總數估計 (謝宗震 博士)
   - R包：`rvest` + `CARE1` + `shiny`
   - 參考: [data](https://github.com/JohnsonHsieh/OpenDataWithR/blob/master/data/npoList.csv), [hackpad](https://dsp.hackpad.com/-NPO-WcWRyZSZFge), [hackathon](http://hack.dsp.im/d4sg-hackathon/https%253A%252F%252Fgoo.gl%252FPFEpD2)
