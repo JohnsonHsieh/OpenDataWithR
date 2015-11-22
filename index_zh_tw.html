@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R在開放數據的加值應用</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" media="all" href="index_zh_tw_files/ioslides-13.5.1/fonts/fonts.css">
+
+  <link rel="stylesheet" media="all" href="index_zh_tw_files/ioslides-13.5.1/theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="index_zh_tw_files/ioslides-13.5.1/theme/css/phone.css">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'R在開放數據的加值應用',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+              },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Johnson Ph.D. (DSP 智庫驅動 資料科學家)' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+
+  </style>
+
+  <link rel="stylesheet" href="css/dsp.css" type="text/css" />
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class=''><hgroup><h2>About Me</h2></hgroup><article  id="about-me" class="columns-2">
+
+<h3>謝宗震 博士 (Johnson Hsieh)</h3>
+
+<ul>
+<li>R語言年資 9年</li>
+<li>新竹清華統計 博士 (2009 - 2013)</li>
+<li><strong>DSP智庫驅動</strong> 知識長 (dsp.im)</li>
+<li>台北市公參會<strong>開放資料組</strong> 顧問</li>
+<li><p>R package: <code>iNEXT</code>, <code>CARE1</code>, <code>JADE</code>, <code>SpadeR</code>, <code>iNextPD</code> &#8230;</p></li>
+<li>DataScience HC group 共同創辦人</li>
+<li>Taiwan R User group officer</li>
+<li><p>Data for social good 共同創辦人</p></li>
+</ul>
+
+<br>
+
+<p>
+
+<p><br></p>
+
+<p><img src='img/johnson.jpg' style='max-width: 100%;max-height: 100%'></img> <br> <font size="2"> 擅長跨與領域專家合作，開發的R包iNEXT被應用於生物、遺傳、新聞、文學、電競等領域。現職為DSP智庫驅動知識長，輔導超過300位企業人士成為數據分析人才。 </font></p>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section" class="vcentered centered">
+
+<p>
+
+<br>
+
+<p style="font-size: 180%">
+
+參與這場R語言會議的朋友有福了
+
+</p>
+
+<br>
+
+<p style="font-size: 180%">
+
+這場演講將分享用R做開放數據分析的真實經驗
+
+</p>
+
+<br>
+
+<p style="font-size: 180%">
+
+所有案例原始數據、代原碼都公開在github
+
+</p>
+
+</article></slide><slide class=''><hgroup><h2>Agenda</h2></hgroup><article  id="agenda">
+
+<ul style="font-size: 120%">
+
+<li>
+
+Real world, data and open data
+
+</li>
+
+<li>
+
+Three types of data analysis
+
+</li>
+
+<li>
+
+Discussion and case study
+
+</li>
+
+</ul>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>About Data</h2></hgroup><article  id="about-data">
+
+</article></slide><slide class=''><hgroup><h2>About Data</h2></hgroup><article  id="about-data-1" class="smaller centered">
+
+<img src='img/about-data.jpg' style='height: 400px'></img>
+
+<h3>
+
+Real World, All Data, Big Data, Open Data
+
+</h3>
+
+<p>取自 <a href='http://goo.gl/HS4irZ' title=''>http://goo.gl/HS4irZ</a></p>
+
+</article></slide><slide class=''><hgroup><h2>Open Data</h2></hgroup><article  id="open-data">
+
+<p>開放數據是一種經過挑選與許可的數據，它不受著作權、專利權，以及其他管理機制所限制，可以開放給社會公眾，任何人都可以自由出版使用，不論是要拿來出版或是做其他的運用都不加以限制。</p>
+
+<br>
+
+<ul style="font-size: 120%">
+
+<li>
+
+資訊對稱，溝通透明
+
+</li>
+
+<li>
+
+群眾外包，共同參與
+
+</li>
+
+<li>
+
+練功打怪，自我實現
+
+</li>
+
+<li>
+
+結合創新，提升效能
+
+</li>
+
+</ul>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Three types of data analysis</h2></hgroup><article  id="three-types-of-data-analysis">
+
+</article></slide><slide class=''><hgroup><h2>Three types of data analysis</h2></hgroup><article  id="three-types-of-data-analysis-1">
+
+<h3>
+
+掌握現況
+
+</h3>
+
+<h3>
+
+洞悉關聯
+
+</h3>
+
+<h3>
+
+預測未知
+
+</h3>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>掌握現況案例</h2></hgroup><article >
+
+</article></slide><slide class=''><hgroup><h2>社區醫療群地圖 (gov)</h2></hgroup><article  id="-gov" class="smaller centered">
+
+<img src='img/communitymedcare.png' style='height: 400px'></img>
+
+<h3>
+
+ggmap + rCharts + shiny
+
+</h3>
+
+<p>作者： 李昕迪 醫師 (mcdlee)</p>
+
+</article></slide><slide class=''><hgroup><h2>社區醫療群地圖 (gov)</h2></hgroup><article  id="-gov-1" class="smaller centered">
+
+<iframe src="http://mcdlee.github.io/VGHKS/VGHKS.html" width="960" height="400" scrolling="yes" frameborder="0">
+
+</iframe>
+
+</article></slide><slide class=''><hgroup><h2>社區醫療群地圖 (gov)</h2></hgroup><article  id="-gov-2">
+
+<ul>
+<li>來源：衛福部中央健保署</li>
+<li>作者：李昕迪 醫師 (mcdlee)</li>
+<li>R包：<code>ggmap</code> + <code>rCharts</code> + <code>shiny</code></li>
+<li>參考: <a href='http://mcdlee.github.io/gisVisualization' title=''>slide</a>, <a href='https://mcdlee.shinyapps.io/communitymedcare' title=''>shinypp</a>, <a href='https://github.com/mcdlee/communitymedcare' title=''>github repo</a></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo" class="smaller centered">
+
+<img src='img/unitedway.png' style='height: 400px'></img>
+
+<h3>
+
+聯合勸募基金會
+
+</h3>
+
+<p><a href='https://www.unitedway.org.tw/' title=''>https://www.unitedway.org.tw/</a></p>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo-1" class="smaller centered">
+
+<img src='img/npo-list.png' style='height: 400px'></img>
+
+<h3>
+
+利用<code>rvest</code>爬NPO名錄
+
+</h3>
+
+<p>收錄1111間NPO，包含16種服務對象(tag)</p>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo-2" class="smaller centered">
+
+<img src='img/npo-bar.png' style='height: 400px'></img>
+
+<h3>
+
+<code>dplyr</code> + <code>ggplot2</code>
+
+</h3>
+
+<p>台北 (都市, S=16, n=738)、雲嘉 (農業, S=15, n=177)、花東 (偏鄉, S=15, n=206)</p>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo-3" class="columns-2">
+
+<ul>
+<li>多樣性 (diversity) 與多樣性指標</li>
+<li>一個區域的多樣性越高，表示遇到災害的容忍程度越高</li>
+<li>基本概念：種類越多越好，分布越均勻越好</li>
+<li>Shannon diversity: \(H = \exp{\left ( \sum_{i=1}^{S}-p_i\log{p_i}\right )}\) <br>
+
+<p>
+
+<br> <img src='img/sampleSites.jpg' style='height: 200px'></img></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo-4">
+
+<ul>
+<li>多樣性指標會受到樣本數所影響，樣本數越大，能夠觀察到的種類數也越多，多樣性就越大。為求公平，應控制在相同樣本數下比較多樣性。</li>
+<li>Shannon diversity: \(H(n) = \exp{\left ( \sum_{i=1}^{S}-p_i(n)\log{p_i(n)}\right )}\) <br></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>install.packages(&quot;iNEXT&quot;) # 安裝 iNEXT package (Hsieh et al. , 2015) 
+library(iNEXT)
+tab &lt;- read.csv(&quot;npo-type.csv&quot;, row.names = 1)
+# iNEXT 主程式，計算位階數q = 1的Shannon diversity 稀釋/外插估計
+out &lt;- iNEXT(tab, q=1, endpoint=750, se=FALSE)
+# 整合ggplot2繪圖風格
+ggiNEXT(out) + 
+  theme_gray(base_family = &quot;STHeiti&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo-5" class="smaller centered">
+
+<img src='img/npo-inext.png' style='height: 400px'></img>
+
+<h3>
+
+<code>dplyr</code> + <code>ggplot2</code> + <code>iNEXT</code>
+
+</h3>
+
+<p>多樣性排序：花東 &gt; 台北 &gt; 雲嘉</p>
+
+</article></slide><slide class=''><hgroup><h2>NPO城鄉多樣性比較 (NPO)</h2></hgroup><article  id="npo-npo-6">
+
+<ul>
+<li>來源：聯合勸募基金會</li>
+<li>作者：謝宗震 博士 (Johnson)</li>
+<li>R包：<code>dplyr</code> + <code>ggplot</code> + <code>iNEXT</code></li>
+<li>參考: <a href='https://chao.shinyapps.io/iNEXT' title=''>shinypp</a>, <a href='https://github.com/JohnsonHsieh/iNEXT' title=''>github repo</a></li>
+<li></li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>洞悉因素案例</h2></hgroup><article >
+
+</article></slide><slide class=''><hgroup><h2>找出火災風險熱區 (GOV)</h2></hgroup><article  id="-gov" class="smaller centered">
+
+<img src='img/Final Areas - fire zones.jpg
+' style='height: 400px'></img>
+
+<h3>
+
+紐奧良消防局 + Nolalytics
+
+</h3>
+
+<p>火災風險熱區 (優先發放煙霧警報器)</p>
+
+</article></slide><slide class=''><hgroup><h2>找出火災風險熱區 (GOV)</h2></hgroup><article  id="-gov-1" class="smaller centered">
+
+<img src='img/NO-table.png' style='height: 400px'></img>
+
+<h3>
+
+回歸分析：找出影響火災的因子
+
+</h3>
+
+<p>屋齡、居住時間、收入水平、更新、屋主年齡、租/住</p>
+
+</article></slide><slide class=''><hgroup><h2>找出火災風險熱區 (GOV)</h2></hgroup><article  id="-gov-2">
+
+<ul>
+<li>來源：紐奧良消防局</li>
+<li>作者：Nolalytics (New Orleans Analytics)</li>
+<li>R包：<code>reshape</code> + <code>plyr</code> + <code>dplyr</code>+ <code>ROCR</code> + <code>maps</code> + <code>maptools</code> + <code>sp</code> + <code>rgdal</code></li>
+<li>Reference: <a href='https://github.com/cno-opa/smoke-alarm-outreach' title=''>github repo</a>, <a href='http://nola.gov/performance-and-accountability/nolalytics/files/full-report-on-analytics-informed-smoke-alarm-outr/' title=''>report</a></li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>預測未知案例</h2></hgroup><article >
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-1" class="smaller centered">
+
+<p><img src='img/ja_b01.jpg' style='height: 500px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section-2" class="smaller centered">
+
+<p><img src='img/news_01.png' style='height: 500px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2>豪宅房價預測 (GOV)</h2></hgroup><article  id="-gov">
+
+<ul>
+<li>內政部實價登錄資料 (2012年8月 ~ 2013年9月)</li>
+<li>頂級豪宅：40 / 21530 件</li>
+<li>重要因子：面積、車位、屋齡、行政區、樓層</li>
+<li><code>reshape</code> + <code>dplyr</code> + <code>mgcv</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>library(mgcv) #provides functions for generalized additive modelling
+dat1 &lt;- readRDS(&quot;data/dat1.rds&quot;)
+# fit linear model
+g1 &lt;- lm(log10(總價)~面積+車位+屋齡+行政區+floor, data=dat1)
+# fit addiive model with two smooth terms
+g2 &lt;- gam(log10(總價)~s(面積)+車位+s(屋齡)+行政區+floor, data=dat1)
+# Compare adjusted R-squared, 越趨近1模型配適度越好
+data.frame(&quot;linear model&quot;=summary(g1)$adj.r.sq, &quot;additive model&quot;=summary(g2)$r.sq)</pre>
+
+<pre >  linear.model additive.model
+1    0.7324551      0.9352784</pre>
+
+</article></slide><slide class=''><hgroup><h2>豪宅房價預測 (GOV)</h2></hgroup><article  id="-gov-1" class="smaller centered">
+
+<p><img src='img/predHouse.png' style='height: 500px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2>豪宅房價預測 (GOV)</h2></hgroup><article  id="-gov-2">
+
+<pre class = 'prettyprint lang-r'># set dataset, 帝寶格局
+new &lt;- dat1[1:6, c(2,3,4,6,7,12)]
+rownames(new) &lt;- 1:6
+new$面積 &lt;- c(160,160,210,210,260,260)
+new$車位 &lt;- rep(&quot;有車位&quot;,6); 
+new$屋齡 &lt;- rep(8, 6)
+new$行政區 &lt;- rep(&quot;大安區&quot;,6)
+new$floor &lt;- rep(c(&quot;低樓層&quot;,&quot;高樓層&quot;),3)
+# prediction
+tmp &lt;- predict(g2, newdata=new, se.fit=TRUE)
+pred &lt;- 10^cbind(tmp$fit, tmp$fit-tmp$se.fit, tmp$fit+tmp$se.fit)
+data.frame(&quot;建案坪數&quot;=new$面積, &quot;高低樓層&quot;=new$floor, 
+           &quot;總價估計.萬元&quot;=round(pred[,1]/10000),
+           &quot;單價估計.萬元&quot;=round(pred[,1]/10000/new$面積))</pre>
+
+</article></slide><slide class=''><hgroup><h2>豪宅房價預測 (GOV)</h2></hgroup><article  id="-gov-3" class="smaller centered">
+
+<p><img src='img/shiny_01.png' style='height: 500px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2>豪宅房價預測 (GOV)</h2></hgroup><article  id="-gov-4" class="smaller centered">
+
+<p><img src='img/news_02.png' style='height: 500px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2>豪宅房價預測 (GOV)</h2></hgroup><article  id="-gov-5">
+
+<ul>
+<li>來源：內政部實價登錄資料 (2012年8月 ~ 2013年9月)</li>
+<li>作者：謝宗震 博士</li>
+<li>R包：<code>mgcv</code></li>
+<li>Reference: <a href='https://github.com/JohnsonHsieh/study-area-statR' title=''>github repo</a></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>NPO總數估計 (NPO)</h2></hgroup><article  id="npo-npo" class="smaller centered">
+
+<p><img src='img/npo-list2.png' style='height: 400px'></img> <br> 四種來源：台灣公益資訊中心、善耕365、聯合勸募、自律聯盟</p>
+
+</article></slide><slide class=''><hgroup><h2>NPO總數估計 (NPO)</h2></hgroup><article  id="npo-npo-1" class="smaller centered">
+
+<img src='img/cmr.png' style='height: 400px'></img>
+
+<h3>
+
+重復捕取方法 (Chao et al. 2015)
+
+</h3>
+
+</article></slide><slide class=''><hgroup><h2>NPO總數估計 (NPO)</h2></hgroup><article  id="npo-npo-2">
+
+<pre class = 'prettyprint lang-r'>install.packages(&quot;CARE1&quot;) # 樣本覆蓋率估計法 (Chao et al. 2015)
+library(CARE1)
+npoList &lt;- read.csv(&quot;data/npoList.csv&quot;, row.names=1)
+record &lt;- as.record(npoList)
+estN.stat(record) 
+# M=觀察到的總類別, D=任兩來源的平均類別, C=樣本覆蓋率
+estN(record, method=&quot;LSC&quot;, se=TRUE)
+# 四個來源共觀察到 3528間 NPO，以樣本覆蓋率法推得 7507間 NPO估計值</pre>
+
+<pre >0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111 
+  56  635   35  106    7   38   15 2149   33  256   47   63    6   54   28 </pre>
+
+<pre >        M      D  Chat
+[1,] 3528 2791.5 0.508</pre>
+
+<pre >              est       se      cil      ciu
+est.Nhat 7507.421 396.1306 6803.639 8362.414</pre>
+
+</article></slide><slide class=''><hgroup><h2>NPO總數估計 (NPO)</h2></hgroup><article  id="npo-npo-3">
+
+<ul>
+<li>來源：台灣公益資訊中心、善耕365、聯合勸募、自律聯盟</li>
+<li>作者：DSP資料科學團隊</li>
+<li>R包：<code>rvest</code> + <code>CARE1</code> + <code>shiny</code></li>
+<li>參考: <a href='https://dsp.hackpad.com/-NPO-WcWRyZSZFge' title=''>hackpad</a>, <a href='http://hack.dsp.im/d4sg-hackathon/https%253A%252F%252Fgoo.gl%252FPFEpD2' title=''>hackathon</a></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>博客瀏覽數預測 (Business)</h2></hgroup><article  id="-business" class="smaller centered">
+
+<p><img src='img/pixnet-data.png' style='height: 500px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2>數據競賽平台</h2></hgroup><article  class="smaller centered">
+
+<p><img src='img/dc-pixnet.png' style='width: 960px'></img></p>
+
+</article></slide><slide class=''><hgroup><h2>數據競賽平台</h2></hgroup><article  id="-1" class="smaller centered">
+
+<img src='img/dc-overview.png' style='height: 400px'></img>
+
+<h3>
+
+數據競賽平台
+
+</h3>
+
+<p>政府、企業、非營利組織的數據加值平台</p>
+
+</article></slide><slide class=''><hgroup><h2>Summary</h2></hgroup><article  id="summary">
+
+<ul>
+<li>社區醫療群地圖: <a href='https://github.com/mcdlee/communitymedcare' title=''>https://github.com/mcdlee/communitymedcare</a></li>
+<li>NPO城鄉多樣性比: <a href='https://github.com/JohnsonHsieh/iNEXT' title=''>https://github.com/JohnsonHsieh/iNEXT</a></li>
+<li>找出火災風險熱區: <a href='https://github.com/cno-opa/smoke-alarm-outreach' title=''>https://github.com/cno-opa/smoke-alarm-outreach</a></li>
+<li>豪宅房價預測: <a href='https://github.com/JohnsonHsieh/study-area-statR' title=''>https://github.com/JohnsonHsieh/study-area-statR</a></li>
+<li>NPO總數估計: <a href='https://dsp.hackpad.com/-NPO-WcWRyZSZFge' title=''>https://dsp.hackpad.com/-NPO-WcWRyZSZFge</a></li>
+</ul>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Thank You</h2></hgroup><article  id="thank-you"></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script src="index_zh_tw_files/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+<script src="index_zh_tw_files/ioslides-13.5.1/js/prettify/prettify.js"></script>
+<script src="index_zh_tw_files/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+<script src="index_zh_tw_files/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+<script src="index_zh_tw_files/ioslides-13.5.1/js/hammer.js"></script>
+<script src="index_zh_tw_files/ioslides-13.5.1/js/slide-controller.js"></script>
+<script src="index_zh_tw_files/ioslides-13.5.1/js/slide-deck.js"></script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
